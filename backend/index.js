@@ -10,3 +10,7 @@ app.listen(PORT, () =>{
     connectDB();
     console.log(`Server Listen at port ${PORT}`);
 });
+
+app.get('/', (req, res) => {
+    res.send('Chat Application Server is Running')
+})
