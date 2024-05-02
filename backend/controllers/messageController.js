@@ -39,6 +39,6 @@ export const getMessage = async (req, res) => {
         }).populate("messages");
         console.log(conversation);
     } catch (error) {
-        console.log(error);
+        
     }
 }
