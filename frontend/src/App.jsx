@@ -1,11 +1,10 @@
+import { createBrowserRouter } from "react-router-dom";
 
-function App() {
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <div> <h1 className="text-3xl font-bold underline">Hello world!</h1></div>,
+  },
+]);
 
-  return (
-    <>
-      <h1>Chat Applications</h1>
-    </>
-  )
-}
-
-export default App
+export default router;
