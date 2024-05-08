@@ -6,6 +6,8 @@ import router from './App.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <div className='p-4 h-screen flex items-center justify-center'>
+      <RouterProvider router={router} />
+    </div>
   </React.StrictMode>,
 )
