@@ -1,9 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios';
+import toast from "react-hot-toast";
 
 
 const Register = () => {
+    const navigate = useNavigate();
     const [user, setUser] = useState({
         fullName: "",
         username: "",
@@ -23,11 +25,14 @@ const Register = () => {
                 },
                 withCredentials: true
             });
-            console.log(res);
+            if(res.data.success){
+                toast.success(res.data.message);
+                navigate('/login')
+            }
         } catch (error) {
+            toast.error(error.response.data.message);
             console.log(error);
         }
-        console.log(user);
         setUser({
             fullName: "",
             username: "",
