@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 
 
@@ -9,6 +10,7 @@ const Login = () => {
     });
     const onSubmitHandler = e => {
         e.preventDefault();
+        toast.success("Successs");
         console.log(user);
         setUser({
             username: "",

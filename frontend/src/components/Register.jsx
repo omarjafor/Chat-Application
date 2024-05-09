@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 
 const Register = () => {
@@ -11,16 +12,29 @@ const Register = () => {
         gender: ""
     });
     const handleCheckbox = (gender) => {
-        setUser({...user, gender})
+        setUser({ ...user, gender })
     }
-    const onSubmitHandler = e => {
+    const onSubmitHandler = async (e) => {
         e.preventDefault();
+        try {
+            const res = await axios.post(`http://localhost:8080/api/v1/user/register`, user, {
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                withCredentials: true
+            });
+            console.log(res);
+        } catch (error) {
+            console.log(error);
+        }
+        console.log(user);
         setUser({
             fullName: "",
             username: "",
             password: "",
             confirmPassword: "",
-            gender: "" })
+            gender: ""
+        })
     }
     return (
         <div className="min-w-96 mx-auto">
@@ -31,18 +45,18 @@ const Register = () => {
                         <label className="label p-2">
                             <span className="text-base label-text text-white">Full Name</span>
                         </label>
-                        <input 
-                        className="w-full input input-bordered h-10" 
-                        type="text" name="" id="" 
-                        placeholder="Type Full Name" 
-                        onChange={(e)=>setUser({...user, fullName:e.target.value})}
-                        value={user.fullName}/>
+                        <input
+                            className="w-full input input-bordered h-10"
+                            type="text" name="" id=""
+                            placeholder="Type Full Name"
+                            onChange={(e) => setUser({ ...user, fullName: e.target.value })}
+                            value={user.fullName} />
                     </div>
                     <div>
                         <label className="label p-2">
                             <span className="text-base label-text text-white">User Name</span>
                         </label>
-                        <input className="w-full input input-bordered h-10" type="text" name="" id="" placeholder="Type User Name" onChange={(e) => setUser({ ...user, username: e.target.value })} value={user.username}/>
+                        <input className="w-full input input-bordered h-10" type="text" name="" id="" placeholder="Type User Name" onChange={(e) => setUser({ ...user, username: e.target.value })} value={user.username} />
                     </div>
                     <div>
                         <label className="label p-2">
@@ -54,23 +68,23 @@ const Register = () => {
                         <label className="label p-2">
                             <span className="text-base label-text text-white">Confirm Password</span>
                         </label>
-                        <input className="w-full input input-bordered h-10" type="password" name="" id="" placeholder="Confirm Password" onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} value={user.confirmPassword}/>
+                        <input className="w-full input input-bordered h-10" type="password" name="" id="" placeholder="Confirm Password" onChange={(e) => setUser({ ...user, confirmPassword: e.target.value })} value={user.confirmPassword} />
                     </div>
                     <div className="flex items-center my-4 text-white">
                         <div className="flex items-center">
                             <p>Male</p>
-                            <input 
-                            type="checkbox" 
-                            checked={user.gender == "male"}
-                            onChange={()=>handleCheckbox("male")}
-                            className="checkbox mx-2 checkbox-accent " />
+                            <input
+                                type="checkbox"
+                                checked={user.gender == "male"}
+                                onChange={() => handleCheckbox("male")}
+                                className="checkbox mx-2 checkbox-accent " />
                         </div>
                         <div className="flex items-center">
                             <p>Female</p>
-                            <input type="checkbox" 
-                            checked={user.gender == "female"}
-                            onChange={() => handleCheckbox("female")} 
-                            className="checkbox mx-2 checkbox-accent" />
+                            <input type="checkbox"
+                                checked={user.gender == "female"}
+                                onChange={() => handleCheckbox("female")}
+                                className="checkbox mx-2 checkbox-accent" />
                         </div>
                     </div>
                     <p className="text-center text-white">Already have an account? <Link to='/login' className="bg-cyan-400 rounded-md p-2 ml-2 text-black font-bold"> Login</Link></p>
