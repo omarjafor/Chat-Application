@@ -1,9 +1,13 @@
+import OtherUser from "./OtherUser";
 
 
 const OtherUsers = () => {
     return (
         <div>
-            Other Users
+            <OtherUser />
+            <OtherUser />
+            <OtherUser />
+            <OtherUser />
         </div>
     );
 };
