@@ -13,7 +13,7 @@ const Sidebar = () => {
             <div className="divider px-3"></div>
             <OtherUsers />
             <div className="mt-2">
-                <button onClick='' className="btn btn-sm">Logout</button>
+                <button onClick={} className="btn btn-sm">Logout</button>
             </div>
         </div>
     );

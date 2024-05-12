@@ -1,20 +1,23 @@
+import { useSelector } from "react-redux";
+import useOtherUsers from "../hooks/useOtherUsers";
 import OtherUser from "./OtherUser";
 
 
 const OtherUsers = () => {
+    // custom hook 
+    useOtherUsers();
+    const { otherUsers } = useSelector(store=>store.user);
+    if(!otherUsers) return;
+
     return (
         <div className="overflow-auto flex-1">
-            <OtherUser />
-            <OtherUser />
-            <OtherUser />
-            <OtherUser />
-            <OtherUser />
-            <OtherUser />
-            <OtherUser />
-            <OtherUser />
-            <OtherUser />
-            <OtherUser />
-            <OtherUser />
+            {
+                otherUsers?.map((user) => {
+                    return (
+                        <OtherUser key={user._id} user={user}/>
+                    )
+                })
+            }
         </div>
     );
 };
