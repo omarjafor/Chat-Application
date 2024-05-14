@@ -24,7 +24,6 @@ const Login = () => {
             });
             navigate('/');
             dispatch(setAuthUser(res.data));
-            console.log(res);
             toast.success('Login Successful');
         } catch (error) {
             toast.error(error.response.data.message);
