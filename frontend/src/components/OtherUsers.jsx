@@ -6,15 +6,15 @@ import OtherUser from "./OtherUser";
 const OtherUsers = () => {
     // custom hook 
     useOtherUsers();
-    const { otherUsers } = useSelector(store=>store.user);
+    const { otherUsers, searching } = useSelector(store=>store.user);
     if(!otherUsers) return;
 
     return (
         <div className="overflow-auto flex-1">
             {
-                otherUsers?.map((user) => {
+                otherUsers?.filter(user => user.fullName.toLowerCase().includes(searching.toLowerCase()))?.map((user) => {
                     return (
-                        <OtherUser key={user._id} user={user}/>
+                        <OtherUser key={user._id} user={user} />
                     )
                 })
             }
