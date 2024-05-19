@@ -19,7 +19,6 @@ const Message = ({ message }) => {
                 <time className="text-xs text-white font-bold opacity-50">12:45</time>
             </div>
             <div className="chat-bubble">{message?.message}</div>
-
         </div>
     );
 };
