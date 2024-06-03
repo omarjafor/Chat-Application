@@ -5,9 +5,8 @@ import connectDB from './config/database.js';
 import userRoute from './routes/userRoute.js';
 import messageRoute from './routes/messageRoute.js';
 import cookieParser from 'cookie-parser';
+import { app, server } from './socket/socket.js';
 dotenv.config();
-
-const app = express();
 
 const PORT = process.env.PORT || 5000;
 
@@ -22,7 +21,7 @@ app.use(cookieParser());
 app.use('/api/v1/user', userRoute);
 app.use('/api/v1/message', messageRoute);
 
-app.listen(PORT, () =>{
+server.listen(PORT, () =>{
     connectDB();
     console.log(`Server Listen at port ${PORT}`);
 });
