@@ -6,16 +6,18 @@ import io from 'socket.io-client';
 
 const Home = () => {
     const [socket, setSocket] = useState(null);
-    const {authUser} = useSelector(store => store.user);
+    const { authUser } = useSelector(store => store.user);
 
-    useEffect( () => {
-        if(authUser){
+    useEffect(() => {
+        if (authUser) {
             const socket = io('http://localhost:8080', {
-
+                query: {
+                    userId: authUser._id
+                }
             });
             setSocket(socket);
         }
-    } , [authUser])
+    }, [authUser])
 
     return (
         <div className="flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
