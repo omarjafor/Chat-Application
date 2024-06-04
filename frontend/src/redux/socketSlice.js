@@ -9,4 +9,6 @@ const socketSlice = createSlice({
             state.socket = action.payload
         }
     }
-})
+});
+export const {setSocket} = socketSlice.actions;
+export default socketSlice.reducer;
