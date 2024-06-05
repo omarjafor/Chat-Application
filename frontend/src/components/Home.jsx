@@ -1,12 +1,16 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import MessageBox from "./MessageBox";
 import Sidebar from "./Sidebar";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import io from 'socket.io-client';
+import { setSocket } from "../redux/socketSlice";
+import { setOnlineUsers } from "../redux/userSlice";
 
 const Home = () => {
-    const [socket, setSocket] = useState(null);
+    
+    const { socket } = useSelector(store => store.socket);
     const { authUser } = useSelector(store => store.user);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         if (authUser) {
@@ -15,9 +19,19 @@ const Home = () => {
                     userId: authUser._id
                 }
             });
-            setSocket(socket);
+            dispatch(setSocket(socket));
+
+            socket.on('getOnlineUsers', (onlineUsers) => {
+                dispatch(setOnlineUsers(onlineUsers));
+            });
+            return () => socket.close();
+        }else{
+            if(socket){
+                socket.close();
+                dispatch(setSocket(null));
+            }
         }
-    }, [authUser])
+    }, [authUser, dispatch, socket])
 
     return (
         <div className="flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">

@@ -7,7 +7,7 @@ const store = configureStore({
     reducer:{
         user: userSlice,
         message: messageSlice,
-        socket: socketSlice
+        socket: socketSlice,
     }
 });
 export default store;
