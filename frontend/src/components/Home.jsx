@@ -8,30 +8,31 @@ import { setOnlineUsers } from "../redux/userSlice";
 
 const Home = () => {
     
-    const { socket } = useSelector(store => store.socket);
     const { authUser } = useSelector(store => store.user);
+    const { socket } = useSelector(store => store.socket);
     const dispatch = useDispatch();
 
     useEffect(() => {
         if (authUser) {
-            const socket = io('http://localhost:8080', {
+            const socketio = io('http://localhost:8080', {
                 query: {
                     userId: authUser._id
                 }
             });
-            dispatch(setSocket(socket));
+            dispatch(setSocket(socketio));
 
-            socket.on('getOnlineUsers', (onlineUsers) => {
-                dispatch(setOnlineUsers(onlineUsers));
+            socketio?.on('getOnlineUsers', (onlineUsers) => {
+                dispatch(setOnlineUsers(onlineUsers))
             });
-            return () => socket.close();
-        }else{
-            if(socket){
+            return () => socketio.close();
+        } else {
+            if (socket) {
                 socket.close();
                 dispatch(setSocket(null));
             }
         }
-    }, [authUser, dispatch, socket])
+
+    }, [authUser, dispatch, socket]);
 
     return (
         <div className="flex sm:h-[450px] md:h-[550px] rounded-lg overflow-hidden bg-gray-400 bg-clip-padding backdrop-filter backdrop-blur-lg bg-opacity-0">
