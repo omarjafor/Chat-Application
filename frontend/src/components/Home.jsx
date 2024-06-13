@@ -13,24 +13,7 @@ const Home = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (authUser) {
-            const socketio = io('http://localhost:8080', {
-                query: {
-                    userId: authUser._id
-                }
-            });
-            dispatch(setSocket(socketio));
-
-            socketio?.on('getOnlineUsers', (onlineUsers) => {
-                dispatch(setOnlineUsers(onlineUsers))
-            });
-            return () => socketio.close();
-        } else {
-            if (socket) {
-                socket.close();
-                dispatch(setSocket(null));
-            }
-        }
+        
 
     }, [authUser, dispatch, socket]);
 
